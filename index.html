@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ledger — a task list</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="brand-mark">☐</span>
+      <span class="brand-name">Ledger</span>
+    </div>
+
+    <nav class="views">
+      <button class="view-btn active" data-view="all">
+        <span>All tasks</span><span class="count" id="count-all">0</span>
+      </button>
+      <button class="view-btn" data-view="today">
+        <span>Today</span><span class="count" id="count-today">0</span>
+      </button>
+      <button class="view-btn" data-view="upcoming">
+        <span>Upcoming</span><span class="count" id="count-upcoming">0</span>
+      </button>
+      <button class="view-btn" data-view="noDate">
+        <span>No date</span><span class="count" id="count-noDate">0</span>
+      </button>
+      <button class="view-btn" data-view="completed">
+        <span>Completed</span><span class="count" id="count-completed">0</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-section">
+      <div class="sidebar-label">Categories</div>
+      <div id="category-list" class="category-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <div class="sidebar-footer">
+      <span id="storage-note">Saved on this device</span>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+    <header class="topbar">
+      <div class="search-wrap">
+        <input type="text" id="search-input" placeholder="Search tasks or categories…" autocomplete="off">
+      </div>
+      <div class="today-date" id="today-date"></div>
+    </header>
+
+    <form class="add-bar" id="add-form">
+      <input type="text" id="task-input" placeholder="Add a task — e.g. Email the landlord about the lease" autocomplete="off" required>
+      <input type="date" id="task-date" title="Due date">
+      <select id="task-priority" title="Priority">
+        <option value="low">Low</option>
+        <option value="medium" selected>Medium</option>
+        <option value="high">High</option>
+      </select>
+      <input type="text" id="task-category" placeholder="Category" list="category-suggestions" autocomplete="off">
+      <datalist id="category-suggestions"></datalist>
+      <button type="submit" class="add-btn">Add</button>
+    </form>
+
+    <div class="list-heading">
+      <h1 id="view-title">All tasks</h1>
+      <span id="view-subtitle" class="view-subtitle"></span>
+    </div>
+
+    <div id="task-groups" class="task-groups">
+      <!-- populated by JS -->
+    </div>
+
+    <div id="empty-state" class="empty-state" hidden>
+      <div class="empty-mark">✓</div>
+      <p id="empty-text">Nothing here yet.</p>
+    </div>
+  </main>
+</div>
+
+<!-- Edit dialog -->
+<dialog id="edit-dialog">
+  <form id="edit-form" method="dialog">
+    <h2>Edit task</h2>
+    <label>Task
+      <input type="text" id="edit-text" required>
+    </label>
+    <div class="edit-row">
+      <label>Due date
+        <input type="date" id="edit-date">
+      </label>
+      <label>Priority
+        <select id="edit-priority">
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </label>
+    </div>
+    <label>Category
+      <input type="text" id="edit-category" list="category-suggestions">
+    </label>
+    <label>Notes
+      <textarea id="edit-notes" rows="3" placeholder="Optional details…"></textarea>
+    </label>
+    <div class="dialog-actions">
+      <button type="button" id="edit-cancel" class="btn-ghost">Cancel</button>
+      <button type="submit" class="btn-primary">Save changes</button>
+    </div>
+  </form>
+</dialog>
+
+<script src="script.js"></script>
+</body>
+</html>
